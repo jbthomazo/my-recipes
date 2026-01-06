@@ -1,5 +1,5 @@
 backend:
-  name: github
+  name: git-gateway
   repo: jbthomazo/my-recipes # Remplace par ton pseudo/nom du dépôt
   branch: main
 
