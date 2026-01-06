@@ -17,6 +17,9 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Passer au mode clair
+  favicon: assets/images/nomega_logo_small.png
+  icon:
+    logo: material/silverware-fork-knife # Optionnel : une icône dans la barre de titre
 
 nav:
   - Accueil: index.md
