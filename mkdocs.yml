@@ -1,14 +1,21 @@
-site_name: Mes Recettes de Cuisine
 theme:
   name: material
-  language: fr  # Pour avoir l'interface en français
+  language: fr
   palette:
-    primary: deep orange # Couleur thématique "cuisine"
-    accent: orange
+    # Palette pour le mode clair
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep orange
+      accent: orange
+      toggle:
+        icon: material/brightness-7
+        name: Passer au mode sombre
 
-nav:
-  - Accueil: index.md
-  - Plats: 
-      - Poulet au curry: plats/poulet-curry.md
-  - Desserts:
-      - Fondant au chocolat: desserts/fondant.md
+    # Palette pour le mode sombre
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep orange
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Passer au mode clair
