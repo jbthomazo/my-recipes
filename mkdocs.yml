@@ -24,3 +24,6 @@ nav:
       - Poulet au curry: plats/poulet-curry.md
   - Desserts:
       - Fondant au chocolat: desserts/fondant.md
+
+extra:
+  manifest: 'manifest.webmanifest'
