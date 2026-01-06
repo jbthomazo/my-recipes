@@ -1,8 +1,8 @@
+site_name: Mes Recettes de Cuisine
 theme:
   name: material
   language: fr
   palette:
-    # Palette pour le mode clair
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: deep orange
@@ -10,8 +10,6 @@ theme:
       toggle:
         icon: material/brightness-7
         name: Passer au mode sombre
-
-    # Palette pour le mode sombre
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: deep orange
@@ -19,3 +17,10 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Passer au mode clair
+
+nav:
+  - Accueil: index.md
+  - Plats: 
+      - Poulet au curry: plats/poulet-curry.md
+  - Desserts:
+      - Fondant au chocolat: desserts/fondant.md
