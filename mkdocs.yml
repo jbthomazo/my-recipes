@@ -1,6 +1,7 @@
 site_name: Mes Recettes de Cuisine
 theme:
   name: material
+  custom_dir: overrides
   language: fr
   palette:
     - media: "(prefers-color-scheme: light)"
