@@ -1,0 +1,13 @@
+{
+  "short_name": "Recettes",
+  "name": "Mon Carnet de Recettes",
+  "icons": [
+    {
+      "src": "assets/images/nomega_logo_small.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "."
+}
