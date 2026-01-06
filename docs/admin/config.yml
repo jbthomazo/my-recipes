@@ -1,0 +1,26 @@
+backend:
+  name: github
+  repo: jbthomazo/my-recipes # Remplace par ton pseudo/nom du dépôt
+  branch: main
+
+media_folder: "docs/assets/images" # Où stocker les photos des plats
+public_folder: "/assets/images"
+
+collections:
+  - name: "plats"
+    label: "Plats"
+    folder: "docs/plats"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Corps de la recette", name: "body", widget: "markdown" }
+
+  - name: "desserts"
+    label: "Desserts"
+    folder: "docs/desserts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Corps de la recette", name: "body", widget: "markdown" }
