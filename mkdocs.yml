@@ -24,14 +24,15 @@ theme:
 
 nav:
   - Accueil: index.md
-  - Administration: assets/admin/index.html
   - Plats: 
       - Poulet au curry: plats/poulet-curry.md
   - Desserts:
       - Fondant au chocolat: desserts/fondant.md
+      - Scones: desserts/scones.md
 
 extra:
   manifest: 'manifest.webmanifest'
 
-extra_templates:
-  - assets/admin/config.yaml
+plugins:
+  - search
+  - mermaid2

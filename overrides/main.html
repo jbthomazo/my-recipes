@@ -2,4 +2,14 @@
 
 {% block extrahead %}
   <link rel="apple-touch-icon" href="{{ 'assets/images/nomega_logo_small.png' | url }}">
+  
+  <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'default',
+      });
+    });
+  </script>
 {% endblock %}
