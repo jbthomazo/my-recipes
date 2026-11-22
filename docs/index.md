@@ -1,19 +1,8 @@
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+# Mes Recettes de Cuisine
 
-# Welcome to MkDocs
+Mon carnet de recettes perso, à portée de main à tout moment.
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## Catégories
 
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+- **Plats** : [Poulet au curry](plats/poulet-curry.md)
+- **Desserts** : [Cookies de Mathilde](desserts/cookies-de-mathilde.md), [Fondant au chocolat](desserts/fondant.md), [Scones](desserts/scones.md)
