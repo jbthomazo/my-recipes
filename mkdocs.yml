@@ -33,10 +33,27 @@ nav:
 extra:
   manifest: 'manifest.webmanifest'
 
+hooks:
+  - hooks/recettes.py
+
+extra_css:
+  - stylesheets/extra.css
+
 plugins:
   - search
+  - tags
 
 markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
