@@ -1,6 +1,6 @@
-/* Bandeau préparation / cuisson / portions : trois cartes compactes, même sur téléphone */
+/* Bandeaux d'infos (temps, masse, valeurs nutritionnelles) : cartes compactes, même sur téléphone */
 .md-typeset .grid.cards.infos {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--n, 3), 1fr);
 }
 
 .md-typeset .grid.cards.infos > ul > li {
@@ -8,13 +8,20 @@
   text-align: center;
 }
 
+.md-typeset .grid.cards.infos > ul > li > hr {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
 @media (max-width: 480px) {
-  .md-typeset .grid.cards.infos > ul > li > p:first-child {
+  .md-typeset .grid.cards.infos > ul > li > p {
     font-size: 0.7rem;
   }
 }
 
-.md-typeset .grid.cards.infos > ul > li > hr {
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
+.md-typeset .infos-legende {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.7rem;
+  margin-top: -0.4em;
+  text-align: right;
 }

@@ -10,7 +10,7 @@ Lire `docs-recettes/FORMAT.md`. C'est la spec du format, et sa section « Règle
 
 - `docs/` : contenu du site (`plats/`, `desserts/`, `index.md`)
 - `docs-recettes/` : spec du format, non publiée sur le site
-- `hooks/recettes.py` : vérifie les recettes au build et génère leur bandeau (préparation, cuisson, portions)
+- `hooks/recettes.py` : vérifie les recettes au build et génère leurs bandeaux (temps, masse totale, valeurs nutritionnelles)
 - `overrides/` : surcharges du thème
 - `requirements.txt` : dépendances Python, les seules installées par le déploiement
 - `.github/workflows/deploy.yml` : à chaque push sur `main`, `mkdocs gh-deploy`

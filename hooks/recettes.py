@@ -1,4 +1,4 @@
-"""Hook MkDocs : vérifie les recettes et affiche leur bandeau d'infos.
+"""Hook MkDocs : vérifie les recettes et affiche leurs bandeaux d'infos.
 
 Le format attendu est décrit dans docs-recettes/FORMAT.md.
 """
@@ -9,7 +9,8 @@ import re
 log = logging.getLogger("mkdocs.hooks.recettes")
 
 CATEGORIES = ("plats/", "desserts/")
-OBLIGATOIRES = ("title", "portions", "preparation", "cuisson")
+NOMBRES = ("masse", "energie", "proteines", "glucides", "lipides")
+OBLIGATOIRES = ("title", "cuisson") + NOMBRES
 SECTIONS = ("Ingrédients", "Schéma", "Instructions", "Notes")
 
 DUREE = re.compile(r"^(\d+ h( \d{1,2} min)?|\d+ min)$")
@@ -21,15 +22,22 @@ def _renseigne(meta, cle):
     return meta.get(cle) not in (None, "")
 
 
+def _est_nombre(valeur):
+    return isinstance(valeur, (int, float)) and not isinstance(valeur, bool) and valeur >= 0
+
+
 def _verifier(meta, markdown):
     problemes = []
 
     for cle in OBLIGATOIRES:
         if not _renseigne(meta, cle):
             problemes.append(f"champ obligatoire manquant : {cle}")
-    if _renseigne(meta, "portions") and not isinstance(meta["portions"], int):
-        problemes.append(f"portions doit être un nombre entier : {meta['portions']!r}")
-    for cle in ("preparation", "cuisson"):
+    for cle in NOMBRES:
+        if _renseigne(meta, cle) and not _est_nombre(meta[cle]):
+            problemes.append(f"{cle} doit être un nombre positif : {meta[cle]!r}")
+    if _renseigne(meta, "masse") and _est_nombre(meta["masse"]) and meta["masse"] == 0:
+        problemes.append("masse doit être supérieure à 0")
+    for cle in ("cuisson", "preparation"):
         if _renseigne(meta, cle) and not DUREE.match(str(meta[cle])):
             problemes.append(
                 f"durée invalide pour {cle} : {meta[cle]!r} (attendu : 20 min, 1 h, 1 h 30 min)"
@@ -67,20 +75,40 @@ def _verifier(meta, markdown):
     return problemes
 
 
-def _carte(icone, libelle, valeur):
-    return f"- :material-{icone}:{{ .lg .middle }} **{libelle}**\n\n    ---\n\n    {valeur}\n\n"
+def _nombre(valeur):
+    if isinstance(valeur, float) and not valeur.is_integer():
+        return f"{valeur:.1f}".replace(".", ",")
+    return f"{int(valeur):,}".replace(",", " ")
+
+
+def _carte(libelle, valeur, icone=None):
+    icone_md = f":material-{icone}:{{ .lg .middle }} " if icone else ""
+    return f"- {icone_md}**{libelle}**\n\n    ---\n\n    {valeur}\n\n"
+
+
+def _grille(cartes):
+    return (
+        f'<div class="grid cards infos" style="--n: {len(cartes)}" markdown>\n\n'
+        + "".join(cartes)
+        + "</div>\n\n"
+    )
 
 
 def _bandeau(meta):
-    portions = meta["portions"]
-    personnes = f"{portions} personne{'s' if portions > 1 else ''}"
-    return (
-        '<div class="grid cards infos" markdown>\n\n'
-        + _carte("clock-outline", "Préparation", meta["preparation"])
-        + _carte("fire", "Cuisson", meta["cuisson"])
-        + _carte("silverware-fork-knife", "Portions", personnes)
-        + "</div>\n\n"
-    )
+    temps = []
+    if _renseigne(meta, "preparation"):
+        temps.append(_carte("Préparation", meta["preparation"], "clock-outline"))
+    temps.append(_carte("Cuisson", meta["cuisson"], "fire"))
+    temps.append(_carte("Masse totale", f"{_nombre(meta['masse'])} g", "scale-balance"))
+
+    macros = [
+        _carte("Énergie", f"{_nombre(meta['energie'])} kcal"),
+        _carte("Protéines", f"{_nombre(meta['proteines'])} g"),
+        _carte("Glucides", f"{_nombre(meta['glucides'])} g"),
+        _carte("Lipides", f"{_nombre(meta['lipides'])} g"),
+    ]
+    legende = '<p class="infos-legende">Valeurs nutritionnelles pour toute la recette</p>\n\n'
+    return _grille(temps) + _grille(macros) + legende
 
 
 def on_page_markdown(markdown, page, config, files):
@@ -90,7 +118,7 @@ def on_page_markdown(markdown, page, config, files):
     for probleme in _verifier(page.meta, markdown):
         log.warning("%s : %s", page.file.src_uri, probleme)
 
-    infos = ("portions", "preparation", "cuisson")
-    if all(_renseigne(page.meta, cle) for cle in infos) and isinstance(page.meta["portions"], int):
-        return _bandeau(page.meta) + markdown
-    return markdown
+    infos_ok = _renseigne(page.meta, "cuisson") and all(
+        _renseigne(page.meta, cle) and _est_nombre(page.meta[cle]) for cle in NOMBRES
+    )
+    return _bandeau(page.meta) + markdown if infos_ok else markdown

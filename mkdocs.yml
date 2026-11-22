@@ -27,6 +27,7 @@ nav:
   - Plats: 
       - Poulet au curry: plats/poulet-curry.md
   - Desserts:
+      - Cookies de Mathilde: desserts/cookies-de-mathilde.md
       - Fondant au chocolat: desserts/fondant.md
       - Scones: desserts/scones.md
 
